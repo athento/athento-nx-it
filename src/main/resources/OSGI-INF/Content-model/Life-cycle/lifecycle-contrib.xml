@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="org.athento.nuxeo.athento-nx-it.lifecycle"
+	version="1.0.0">
+	<require>org.nuxeo.runtime.started</require>
+	<extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
+		point="types">
+
+	</extension>
+
+	<extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
+		point="lifecycle">
+
+	</extension>
+
+</component>

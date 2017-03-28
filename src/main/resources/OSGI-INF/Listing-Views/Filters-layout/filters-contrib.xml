@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="org.athento.nuxeo.athento-nx-it.filters"
+	version="1.0.0">
+	<require>org.nuxeo.runtime.started</require>
+
+	<extension target="org.nuxeo.ecm.platform.actions.ActionService"
+		point="filters">
+		<filter id="filter@wf@Sai_Document_Workflow" append="true">
+			<rule grant="false">
+				<condition>document.currentLifeCycleState != "Draft"</condition>
+			</rule>
+		</filter>
+	</extension>
+</component>
