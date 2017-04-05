@@ -10,11 +10,10 @@
 		<handler chainId="sai-assignid">
 			<event>documentCreated</event>
 			<filters>
-				<doctype>Sai</doctype>
+				<doctype>Sai_It</doctype>
 				<attribute>Regular Document</attribute>
 			</filters>
 		</handler>
 
 	</extension>
-
 </component>

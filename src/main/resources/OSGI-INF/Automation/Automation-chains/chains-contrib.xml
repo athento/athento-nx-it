@@ -62,7 +62,127 @@
 			</operation>
 
 		</chain>
+<!--
+		<chain id="wf-sai-it-center-calculateValidators">
+			<documentation>Based on several properties, calculates all levels'
+				validators
+			</documentation>
+			<operation id="Context.FetchDocument" />
+			<operation id="Context.SetVar">
+				<param type="string" name="name">sai_it_type_var</param>
+				<param type="object" name="value">expr:Document["sai_it:type_"]
+				</param>
+			</operation>
+			<operation id="Context.SetVar">
+				<param type="string" name="name">sai_it_center_var</param>
+				<param type="object" name="value">expr:Document["sai_it:center"]
+				</param>
+			</operation>
+			<operation id="Context.SetVar">
+				<param type="string" name="name">assignedgroup_var</param>
+				<param type="object" name="value">expr:@{"group:Level32_"+sai_it_type_var+sai_it_center_var}
+				</param>
+			</operation>
+			<operation id="Context.SetWorkflowVar">
+				<param type="string" name="name">wf-sai-it-center-group</param>
+				<param type="object" name="value">expr:assignedgroup_var
+				</param>
+			</operation>
+			<operation id="Context.SetWorkflowVar">
+				<param type="string" name="name">level16</param>
+				<param type="object" name="value">expr:@{"group:Level16"}
+				</param>
+			</operation>
+			<operation id="Context.SetWorkflowVar">
+				<param type="string" name="name">level15</param>
+				<param type="object" name="value">expr:@{"group:Level15"}
+				</param>
+			</operation>
+		</chain>
+-->
+		<chain id="wf-sai-it-center-calculateValidators">
+			<documentation>Based on several properties, calculates all levels'
+				validators
+			</documentation>
+			<operation id="Context.FetchDocument" />
+			<operation id="Context.SetVar">
+				<param type="string" name="name">sai_it_type_var</param>
+				<param type="object" name="value">expr:Document["sai_it:type_"]
+				</param>
+			</operation>
+			<operation id="Context.SetVar">
+				<param type="string" name="name">sai_it_center_var</param>
+				<param type="object" name="value">expr:Document["sai_it:center"]
+				</param>
+			</operation>
+			<operation id="Context.SetVar">
+				<param type="string" name="name">sai_it_group_var</param>
+				<param type="object" name="value">expr:sai_it_type_var == "01" ?
+					'RME_01' : sai_it_type_var == "02" ?
+					'RME_02' : sai_it_type_var == "03" ?
+					'SSCC' : 'Level25_' + sai_it_center_var
+				</param>
+			</operation>
+			<operation id="Context.SetVar">
+				<param type="string" name="name">assignedgroup_var</param>
+				<param type="object" name="value">expr:@{"group:"+sai_it_group_var}
+				</param>
+			</operation>
+			<operation id="Context.SetWorkflowVar">
+				<param type="string" name="name">wf-sai-it-center-group</param>
+				<param type="object" name="value">expr:assignedgroup_var
+				</param>
+			</operation>
+			<operation id="Context.SetWorkflowVar">
+				<param type="string" name="name">level16</param>
+				<param type="object" name="value">expr:@{"group:Level16"}
+				</param>
+			</operation>
+			<operation id="Context.SetWorkflowVar">
+				<param type="string" name="name">level15</param>
+				<param type="object" name="value">expr:@{"group:Level15"}
+				</param>
+			</operation>
+		</chain>
 
+		<chain id="wf-sai-it-notify-reject">
+			<documentation>
+				Executed when Sai IT document is denied
+			</documentation>
+			<operation id="Context.FetchDocument" />
+			<operation id="Notification.SendMail ">
+				<param type="string" name="subject">expr:@{Env["nuxeo.notification.eMailSubjectPrefix"]} Solicitud de Autorización de Inversión denegada</param>
+				<param type="string" name="from">expr:Env["mail.from"]</param>
+				<param type="string" name="to">expr:Fn.getEmail(workflowInitiator)</param>
+				<param type="boolean" name="HTML">true</param>
+				<param type="string" name="message">
+					<p>La Solicitud de Autorización de Inversión ${Document.title} ha sido denegada.
+
+						Puede acceder al documento <a href="${docUrl}">aquí</a></p>
+				</param>
+				<param name="rollbackOnError" type="boolean">true</param>
+				<param name="viewId" type="string">view_documents</param>
+			</operation>
+		</chain>
+		<chain id="wf-sai-it-notify-validation">
+			<documentation>
+				Executed when Sai IT document is validated
+			</documentation>
+			<operation id="Context.FetchDocument" />
+			<operation id="Notification.SendMail ">
+				<param type="string" name="subject">expr:@{Env["nuxeo.notification.eMailSubjectPrefix"]} Solicitud de Autorización de Inversión validada</param>
+				<param type="string" name="from">expr:Env["mail.from"]</param>
+				<param type="string" name="to">expr:Fn.getEmail(workflowInitiator)</param>
+				<param type="boolean" name="HTML">true</param>
+				<param type="string" name="message">
+					<p>La Solicitud de Autorización de Inversión ${Document.title} ha sido validada.
+
+						Puede acceder al documento <a href="${docUrl}">aquí</a></p>
+				</param>
+				<param name="rollbackOnError" type="boolean">true</param>
+				<param name="viewId" type="string">view_documents</param>
+			</operation>
+		</chain>
 	</extension>
 
 </component>

@@ -6,7 +6,7 @@
 
 	<extension target="org.nuxeo.ecm.platform.actions.ActionService"
 		point="filters">
-		<filter id="filter@wf@Sai_Document_Workflow" append="true">
+		<filter id="filter@wf@Sai_It_Document_Workflow" append="true">
 			<rule grant="false">
 				<condition>document.currentLifeCycleState != "Draft"</condition>
 			</rule>
